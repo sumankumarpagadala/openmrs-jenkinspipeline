@@ -1,0 +1,18 @@
+node ('maven') {
+    stage ('cloning source code'){
+    //pulling source code from git
+    git 'https://github.com/sumankumarpagadala/openmrs-core.git'
+    }
+    stage ('building package'){
+        //packaging
+        sh 'mvn clean package'
+    }
+    stage ('archiving artifacts'){
+        //archiving artifacts
+        archive 'webapp/target/*.war'
+    }
+    stage ('logs'){
+        //logs
+        junit allowEmptyResults: true, testResults: 'webapp/target/surefire-reports/*.xml'
+    }
+}
