@@ -9,13 +9,13 @@ node ('maven') {
     }
     stage ('archiving artifacts'){
         //archiving artifacts
-        archive 'webapp/target/*.war'
+        archiveArtifacts 'webapp/target/*.war'
     }
 	stage('making a build directory'){
 		sh 'mkdir -p $JOB_NAME/$BUILD_NUMBER'
 	}
 	stage ('coying war file to build directory') {
-		sh 'cp /home/jenkins/workspace/OPENMRS-BUILD-PACKAGE-PIPELINE-VCS/webapp/target/*.war /home/jenkins/workspace/$JOB_NAME/$BUILD_NUMBER'
+		sh 'cp /home/jenkins/workspace/OPENMRS-BUILD-PACKAGE-PIPELINE-VCS/webapp/target/*.war /home/jenkins/workspace/$JOB_NAME/$BUILD_NUMBER/*.war
 	}
     stage ('logs'){
         //logs
