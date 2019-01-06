@@ -15,7 +15,7 @@ node ('maven') {
         archiveArtifacts 'webapp/target/*.war'
     }
 	stage ('coying war file to build directory') {
-		sh 'cp /home/jenkins/workspace/OPENMRS-BUILD-PACKAGE-PIPELINE-VCS/webapp/target/openmrs.war /home/jenkins/workspace/OPENMRS-BUILD-PACKAGE-PIPELINE-VCS/$JOB_NAME/$BUILD_NUMBER/openmrs.war'
+		sh 'cp /home/jenkins/workspace/OPENMRS-BUILD-PACKAGE-PIPELINE-SCRIPT/webapp/target/openmrs.war /home/jenkins/workspace/OPENMRS-BUILD-PACKAGE-PIPELINE-SCRIPT/$JOB_NAME/$BUILD_NUMBER/openmrs.war'
 	}
     stage ('logs'){
         //logs
@@ -36,6 +36,6 @@ node ('chefnode') {
 }
 node ('maven') {
 	stage ('copying openmrs.war to application server'){
-		sh 'scp /home/jenkins/workspace/OPENMRS-BUILD-PACKAGE-PIPELINE-VCS/$JOB_NAME/$BUILD_NUMBER/openmrs.war root@192.168.1.16:/opt/tomcat/latest/webapps/openmrs.war'
+		sh 'scp /home/jenkins/workspace/OPENMRS-BUILD-PACKAGE-PIPELINE-SCRIPT/$JOB_NAME/$BUILD_NUMBER/openmrs.war root@192.168.1.16:/opt/tomcat/latest/webapps/openmrs.war'
 	}
 }
