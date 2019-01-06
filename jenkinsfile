@@ -12,10 +12,10 @@ node ('maven') {
         archive 'webapp/target/*.war'
     }
 	stage('making a build directory'){
-		sh 'mkdir /tmp/$JOB_NAME$/$BUILD_NUMBER$'
+		sh 'mkdir /tmp/$JOB_NAME/$BUILD_NUMBER'
 	}
 	stage ('coying war file to build directory') {
-		sh 'cp webapp/target/*.war /tmp/$JOB_NAME$/$BUILD_NUMBER$/*.war'
+		sh 'cp webapp/target/*.war /tmp/$JOB_NAME/$BUILD_NUMBER/*.war'
 	}
     stage ('logs'){
         //logs
