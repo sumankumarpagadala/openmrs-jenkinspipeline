@@ -3,6 +3,9 @@ node ('maven') {
     //pulling source code from git
     git 'https://github.com/sumankumarpagadala/openmrs-core.git'
     }
+	stage('making a build directory'){
+		sh 'mkdir -p $JOB_NAME/$BUILD_NUMBER'
+	}
     stage ('building package'){
         //packaging
         sh 'mvn clean package'
@@ -11,9 +14,6 @@ node ('maven') {
         //archiving artifacts
         archiveArtifacts 'webapp/target/*.war'
     }
-	stage('making a build directory'){
-		sh 'mkdir -p $JOB_NAME/$BUILD_NUMBER'
-	}
 	stage ('coying war file to build directory') {
 		sh 'cp /home/jenkins/workspace/OPENMRS-BUILD-PACKAGE-PIPELINE-VCS/webapp/target/openmrs.war /home/jenkins/workspace/OPENMRS-BUILD-PACKAGE-PIPELINE-VCS/$JOB_NAME/$BUILD_NUMBER/openmrs.war'
 	}
