@@ -15,7 +15,7 @@ node ('maven') {
 		sh 'mkdir -p $JOB_NAME/$BUILD_NUMBER'
 	}
 	stage ('coying war file to build directory') {
-		sh 'cp /home/jenkins/workspace/OPENMRS-BUILD-PACKAGE-PIPELINE-VCS/webapp/target/*.war /home/jenkins/workspace/$JOB_NAME/$BUILD_NUMBER/*.war
+		sh 'cp /home/jenkins/workspace/OPENMRS-BUILD-PACKAGE-PIPELINE-VCS/webapp/target/*.war /home/jenkins/workspace/$JOB_NAME/$BUILD_NUMBER/OPENMRS.war
 	}
     stage ('logs'){
         //logs
