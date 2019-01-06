@@ -21,4 +21,21 @@ node ('maven') {
         //logs
         junit allowEmptyResults: true, testResults: 'webapp/target/surefire-reports/*.xml'
     } 
+	stage('SonarQube analysis') {
+		// performing sonarqube analysis with "withSonarQubeENV(<Name of Server configured in Jenkins>)"
+    withSonarQubeEnv('sonarqube.lab.com') {
+       // requires SonarQube Scanner for Maven 3.2+
+      sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
+    }
+   }
+}
+node ('chefnode') {
+	stage('deploying application'){
+		sh 'chef-client'
+	}
+}
+node ('maven') {
+	stage ('copying openmrs.war to application server'){
+		sh 'scp /home/jenkins/workspace/OPENMRS-BUILD-PACKAGE-PIPELINE-VCS/$JOB_NAME/$BUILD_NUMBER/openmrs.war root@192.168.1.16:/opt/tomcat/latest/webapps/openmrs.war'
+	}
 }
