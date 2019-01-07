@@ -41,6 +41,6 @@ remote.password = 'p@55w0rd'
 remote.allowAnyHosts = true
 	stage ('copying war file to webapps'){
 		writeFile file: 'openmrs.war', text: '..'
-        sshGet remote: remote, from: '/home/jenkins/workspace/OPENMRS-BUILD-PACKAGE-PIPELINE-SCRIPT/$JOB_NAME/$BUILD_NUMBER/openmrs.war', into: '/opt/tomcat/latest/webapps/openmrs.war' override: true
+        sshGet remote: remote, from: '/home/jenkins/workspace/OPENMRS-BUILD-PACKAGE-PIPELINE-SCRIPT/$JOB_NAME/$BUILD_NUMBER/openmrs.war', into: '/opt/tomcat/latest/webapps/openmrs.war', override: true
    }
 }
