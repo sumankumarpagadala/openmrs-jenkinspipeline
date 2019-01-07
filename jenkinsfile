@@ -34,8 +34,15 @@ node ('chefnode') {
 		sh 'chef-client'
 	}
 }
-node ('maven') {
-	stage ('copying openmrs.war to application server'){
-		sh 'scp /home/jenkins/workspace/OPENMRS-BUILD-PACKAGE-PIPELINE-SCRIPT/$JOB_NAME/$BUILD_NUMBER/openmrs.war root@192.168.1.16:/opt/tomcat/latest/webapps/openmrs.war'
-	}
+def remote = [:]
+remote.name = "node-1"
+remote.host = "192.168.1.16"
+remote.user = 'root'
+remote.password = 'p@55w0rd'
+remote.allowAnyHosts = true
+node ('maven'){
+        stage("SSH Steps Rocks!") {
+            writeFile file: 'openmrs.war', text: '..'
+            sshPut remote: remote, from: '/home/jenkins/workspace/OPENMRS-BUILD-PACKAGE-PIPELINE-SCRIPT/$JOB_NAME/$BUILD_NUMBER/openmrs.war' , into: '/opt/tomcat/latest/webapps/openmrs.war'
+        }
 }
