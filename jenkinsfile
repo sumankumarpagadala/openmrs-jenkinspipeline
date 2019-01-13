@@ -32,17 +32,15 @@ node ('maven') {
 node ('chefnode') {
 	stage('deploying application'){
 		sh 'chef-client'
-		}
-	def remote = [:]
+	}
+def remote = [:]
 	remote.name = "maven"
 	remote.host = "192.168.1.6"
 	remote.user = 'root'
 	remote.password = 'p@55w0rd'
 	remote.allowAnyHosts = true
-		stage ('copying war file to webapps'){
-			writeFile file: 'openmrs.war', text: '..'
-			sshGet remote: remote, from: '/home/jenkins/workspace/OPENMRS-BUILD-PACKAGE-PIPELINE-SCRIPT/$JOB_NAME/$BUILD_NUMBER/openmrs.war', into: '/opt/tomcat/latest/webapps/openmrs.war', override: true
+	stage ('copying war file to webapps'){
+		writeFile file: 'openmrs.war', text: '..'
+		sshGet remote: remote, from: '/home/jenkins/workspace/OPENMRS-BUILD-PACKAGE-PIPELINE-SCRIPT/$JOB_NAME/$BUILD_NUMBER/openmrs.war', into: '/opt/tomcat/latest/webapps/openmrs.war', override: true
 		}
-	}
 }
-
