@@ -33,7 +33,7 @@ node ('chefnode') {
 	stage('deploying application'){
 		sh 'chef-client'
 		}
-def remote = [:]
+	def remote = [:]
 	remote.name = "maven"
 	remote.host = "192.168.1.6"
 	remote.user = 'root'
